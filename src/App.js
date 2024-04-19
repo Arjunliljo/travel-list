@@ -36,14 +36,16 @@ function Logo() {
 
 function Form() {
   return (
-    <div className="add-form">
+    <form className="add-form">
       <h3>What do you need for 😍 your trip?</h3>
       <select>
-        <options value={1}>1</options>
-        <options value={1}>2</options>
-        <options value={1}>3</options>
+        {Array.from({ length: 20 }, (_, i) => i + 1).map((num) => {
+          return <option value={num}>{num}</option>;
+        })}
       </select>
-    </div>
+      <input type="text" placeholder="Text..." />
+      <button>add</button>
+    </form>
   );
 }
 
