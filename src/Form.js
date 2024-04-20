@@ -24,7 +24,9 @@ export default function Form({ onAddItems }) {
 
   return (
     <form className="add-form" onSubmit={handleSubmit}>
-      <h3>What do you need for 😍 your trip?</h3>
+      <h3 style={{ textAlign: "center" }}>
+        What do you need for 😍 your trip?
+      </h3>
       <div className="form-container">
         <select value={qty} onChange={(e) => setQty(Number(e.target.value))}>
           {Array.from({ length: 20 }, (_, i) => i + 1).map((num) => {

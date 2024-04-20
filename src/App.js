@@ -22,6 +22,8 @@ export default function App() {
     );
   };
   const handleReset = () => {
+    if (items.length === 0) return;
+
     const confirm = window.confirm(
       "Are you sure you want to delete all items?"
     );
