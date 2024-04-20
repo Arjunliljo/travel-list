@@ -66,7 +66,7 @@ input {
   font-family: inherit;
   border: none;
   border-radius: 10rem;
-  padding: 1.2rem 3.2rem;
+  padding: 1.2rem 2rem;
   font-weight: 700;
   font-size: 1.8rem;
   cursor: pointer;
@@ -76,13 +76,20 @@ input {
   text-transform: uppercase;
   background-color: #76c7ad;
 }
+.add-form select {
+  padding: 0 2rem;
+}
+.form-container {
+  display: flex;
+  gap: 1.5rem;
+}
 
 .list {
   background-color: #5a3e2b;
   color: #ffebb3;
   padding: 4rem 0;
-
   display: flex;
+  flex: 1;
   justify-content: space-between;
   flex-direction: column;
   gap: 3.2rem;
@@ -113,6 +120,12 @@ input {
 @media only screen and (max-width: 778px) {
   h1 {
     font-size: 5rem;
+  }
+  .add-form {
+    flex-direction: column;
+  }
+  .form-container {
+    margin-top: 1rem;
   }
 }
 
