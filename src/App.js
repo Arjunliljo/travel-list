@@ -17,6 +17,13 @@ export default function App() {
       )
     );
   };
+  const handleReset = () => {
+    const confirm = window.confirm(
+      "Are you sure you want to delete all items?"
+    );
+
+    if (confirm) setItems([]);
+  };
 
   return (
     <div className="app">
@@ -26,6 +33,7 @@ export default function App() {
         items={items}
         onDeleteItems={handleDeleteItems}
         onToggle={handlePacked}
+        onReset={handleReset}
       />
       <Stats items={items} />
     </div>
@@ -83,36 +91,58 @@ function Form({ onAddItems }) {
   );
 }
 
-function PackingList({ items, onDeleteItems, onToggle }) {
+function PackingList({ items, onDeleteItems, onToggle, onReset }) {
+  const [input, setInput] = useState("input");
+
+  let filterdItems;
+
+  if (input === "input") filterdItems = items.slice();
+  else if (input === "description")
+    filterdItems = items
+      .slice()
+      .sort((a, b) => a.description.localeCompare(b.description));
+  else
+    filterdItems = items
+      .slice()
+      .sort((a, b) => Number(a.packed) - Number(b.packed));
+
   return (
     <div className="list">
       <ul>
-        {items.map((item) => (
+        {filterdItems.map((item) => (
           <Item
-            item={item}
+            items={item}
             onDeleteItems={onDeleteItems}
             key={item.id}
             onToggle={onToggle}
           />
         ))}
       </ul>
+      <div className="actions">
+        <select value={input} onChange={(e) => setInput(e.target.value)}>
+          <option value="input">SORT BY INPUT ORDER</option>
+          <option value="description">SORT BY description</option>
+          <option value="packed">SORT BY packed status</option>
+        </select>
+        <button onClick={onReset}>Clear</button>
+      </div>
     </div>
   );
 }
 
-function Item({ item, onDeleteItems, onToggle }) {
+function Item({ items, onDeleteItems, onToggle }) {
   return (
     <li>
       <input
         type="checkbox"
         style={{ marginRight: "1rem" }}
-        value={item.packed}
-        onChange={() => onToggle(item.id)}
+        value={items.packed}
+        onChange={() => onToggle(items.id)}
       />
-      <span style={item.packed ? { textDecoration: "line-through" } : {}}>
-        {item.quantity} {item.description}
+      <span style={items.packed ? { textDecoration: "line-through" } : {}}>
+        {items.quantity} {items.description}
       </span>
-      <button onClick={onDeleteItems(item.id)}>❌</button>
+      <button onClick={onDeleteItems(items.id)}>❌</button>
     </li>
   );
 }
