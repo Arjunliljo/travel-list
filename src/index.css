@@ -142,6 +142,10 @@ input {
   h1 {
     font-size: 3.5rem;
   }
+  .stats {
+    font-size: 1.5rem !important;
+    padding: 0 2rem !important;
+  }
 }
 
 .list li {
